@@ -1,4 +1,4 @@
-package CustomView;
+package com.example.CustomView;
 
 public final class TilesLayer {
 

@@ -1,4 +1,4 @@
-package CustomView;
+package com.example.CustomView;
 
 import android.content.Context;
 import android.os.Build;
@@ -12,37 +12,61 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.RequiresApi;
 
-import items.Circle;
-import items.Marker;
+import com.example.maptest.data.Coordinates;
+import com.example.maptest.eventHandler.OnMapLoadListener;
+import com.example.maptest.items.Circle;
+import com.example.maptest.items.Marker;
+import com.example.maptest.items.MarkerCluster;
+import com.example.maptest.utils.RandomGenerator;
+import com.example.maptest.utils.WebAppInterface;
 
+import java.util.HashMap;
 
 public class Map extends WebView {
 
     private WebSettings webSettings;
     private String layer = TilesLayer.DEFAULT;
+    private Boolean isMapLoaded = false;
+    private String js;
+    private Context context;
+    private RandomGenerator randomGenerator;
+    private HashMap<String , Marker> markerList = new HashMap<String, Marker>();
+    private OnMapLoadListener listener;
+
 
     public Map(Context context) {
         super(context);
+        this.context = context;
+        show();
     }
 
     public Map(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
+        show();
     }
 
     public Map(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
+        show();
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public Map(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        this.context = context;
+        show();
     }
 
 
     public void show(){
+        super.loadUrl("file:///android_asset/map.html");
+        randomGenerator = new RandomGenerator();
         webSettings = this.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        this.addJavascriptInterface(new WebAppInterface(this.getContext(), this), "AndroidInterface");
         this.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
@@ -50,10 +74,11 @@ public class Map extends WebView {
                 return true;
             }
         });
-        super.loadUrl("file:///android_asset/map.html");
         this.setWebViewClient(new WebViewClient(){
             public void onPageFinished(WebView view, String url){
                 addLayer(layer);
+                isMapLoaded =true;
+                listener.onMapLoaded();
             }
         });
     }
@@ -66,20 +91,27 @@ public class Map extends WebView {
         }
     }
 
-    public void goTo(){
-       exeJavascript("macarte.flyTo([13.87992, 45.9791], 12);");
+    public void goTo(double latitude, double longitude, int zoomLevel){
+       exeJavascript("macarte.flyTo(["+latitude+", "+longitude+"], "+zoomLevel+");");
     }
 
-    public void addMarker(Marker marker){
-        String js ="";
+    public void goTo(Coordinates coordinates, int zoomLevel){
+        exeJavascript("macarte.flyTo(["+coordinates.getLatitude()+", "+coordinates.getLongitude()+"], "+zoomLevel+");");
+    }
+
+    public void addMarker(final Marker marker){
+        js ="";
+        String markerId = randomGenerator.generateMarkerKey();
+        Log.i("Webview", markerId);
+        markerList.put(markerId, marker);
         if(marker.getIconLink() != null){
-            js = "addMarker('file:///android_res/drawable/"+marker.getIconLink()+"',"+marker.getLatitude()+","+marker.getLongitude()+");\n";
+            js = "addMarker('file:///android_res/drawable/"+marker.getIconLink()+"',"+marker.getLatitude()+","+marker.getLongitude()+",'"+markerId+"');\n";
         }else{
             js = "var marker = L.marker(["+marker.getLatitude()+", "+marker.getLongitude()+"]).addTo(macarte);";
         }
 
-        Log.i("LOCATION JS", js);
         exeJavascript(js);
+
     }
 
     public void addCircle(Circle circle){
@@ -93,7 +125,6 @@ public class Map extends WebView {
         exeJavascript(js);
     }
 
-
     public void setLayer(String layer){
         this.layer = layer;
     }
@@ -104,12 +135,36 @@ public class Map extends WebView {
         exeJavascript(layerJs);
     }
 
+    public void addCluster(MarkerCluster cluster){
+        String js = "var markersCluster = new L.MarkerClusterGroup();\n" +
+                "\n" +
+                "var cities = getCities();\n" +
+                "for (var i = 0; i < cities.length; i++) {\n" +
+                "    var latLng = new L.LatLng(cities[i][1], cities[i][2]);\n" +
+                "    var marker = new L.Marker(latLng, {title: cities[i][0]});\n" +
+                "    markersCluster.addLayer(marker);\n" +
+                "}\n" +
+                "\n" +
+                "macarte.addLayer(markersCluster);";
+    }
+
+
+    public HashMap<String, Marker> getMarkerList(){
+        return this.markerList;
+    }
+
+
     private void exeJavascript(String js){
+        Log.i("LOCATION JS", js);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             this.evaluateJavascript(js, null);
         } else {
             this.loadUrl(js);
         }
+    }
+
+    public void setOnMapLoadListener(OnMapLoadListener listener){
+        this.listener = listener;
     }
 
 

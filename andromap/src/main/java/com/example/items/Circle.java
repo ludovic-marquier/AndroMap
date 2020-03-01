@@ -1,4 +1,4 @@
-package items;
+package com.example.items;
 
 public class Circle {
 
