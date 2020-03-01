@@ -46,7 +46,7 @@ myMap.setLayer(TilesLayer.WORLD_IMAGERY);
 //add a simple Marker with Latitude and Longitude
 map.addMarker(new Marker(45.09,2.47));
 ```
-We recommend you to wait for the map finished to display for adding Markers. You can do it this way :
+If you want to add a Marker at the creation of the View, we recommend you to wait for the map finishes to load before adding it. You can do it this way :
 
 ```java
 map.setOnMapLoadListener(new OnMapLoadListener() {
