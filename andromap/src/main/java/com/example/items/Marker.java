@@ -1,6 +1,7 @@
 package com.example.items;
 
-import com.example.maptest.eventHandler.OnClickMarker;
+
+import com.example.eventHandler.OnClickMarker;
 
 public class Marker {
 

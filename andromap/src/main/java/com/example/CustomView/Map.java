@@ -12,13 +12,14 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.maptest.data.Coordinates;
-import com.example.maptest.eventHandler.OnMapLoadListener;
-import com.example.maptest.items.Circle;
-import com.example.maptest.items.Marker;
-import com.example.maptest.items.MarkerCluster;
-import com.example.maptest.utils.RandomGenerator;
-import com.example.maptest.utils.WebAppInterface;
+
+import com.example.data.Coordinates;
+import com.example.eventHandler.OnMapLoadListener;
+import com.example.items.Circle;
+import com.example.items.Marker;
+import com.example.items.MarkerCluster;
+import com.example.utils.RandomGenerator;
+import com.example.utils.WebAppInterface;
 
 import java.util.HashMap;
 

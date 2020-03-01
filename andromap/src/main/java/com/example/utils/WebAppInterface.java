@@ -4,8 +4,9 @@ import android.content.Context;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-import com.example.maptest.CustomView.Map;
-import com.example.maptest.items.Marker;
+
+import com.example.CustomView.Map;
+import com.example.items.Marker;
 
 import java.util.HashMap;
 
