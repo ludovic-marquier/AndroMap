@@ -74,7 +74,7 @@ marker.setIconLink("my_icon.png");
 ```
 
 ## Marker onClick Event
-The map is executed into the webView environement, so you can't simply implement the View.OnClickListener Interface to handle the click. The OnClickMarker is here for you.
+The map is running into the webView environement, so you can't simply implement the View.OnClickListener Interface to handle the click. The OnClickMarker is here for you.
 
 ```java
 //Marker click handle
