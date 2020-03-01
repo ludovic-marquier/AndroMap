@@ -1,6 +1,11 @@
 # Andromap
 
 Andromap is an [OpenStreetMap](https://www.openstreetmap.org) and [Leaflet](https://leafletjs.com/) based Java library intended to display maps easily on and Android application.
+
+## How it works
+The Map is in fact an object that extends WebView and in wich is loaded the OpenStreetMap API with Javascript in a local HTML file.
+The Library is a group of class and methods that make the bridge beetween the Java Application code and the Javascript Map code. So it allows you to use the map as a classic Android View.
+
 ## Setup
 
 Add it in your root build.gradle at the end of repositories:
@@ -91,7 +96,7 @@ marker.setObjectData(object);
 
 ## LICENSE
 ```
-Copyright 2017-2018 tiagohm
+Copyright 2020-2021 ludomav
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
