@@ -106,8 +106,6 @@ function displayMap(zoomLevel){
         }
     });
 
-
-
     macarte.on('click', function(e){
         var coord = e.latlng;
         var lat = coord.lat;
@@ -116,6 +114,7 @@ function displayMap(zoomLevel){
     });
 
 
+    showAndroidToast("pulswing");
 
 }
 
@@ -128,7 +127,7 @@ function layer(){
 }
 
 
-function generateMarker(width, height, imgLink, lat, long){
+function generateMarker(width, height, imgLink, lat, long, id){
         let x = 50;
         let y = 50*(height/width);
         var greenIcon = L.icon({
@@ -139,7 +138,15 @@ function generateMarker(width, height, imgLink, lat, long){
 
         });
 
-        L.marker([lat, long], {icon: greenIcon}).addTo(macarte);
+
+        console.log(id);
+
+
+        let marker = L.marker([lat, long], {icon: greenIcon});
+        marker.markerId = id;
+        marker.addTo(macarte).on('click', function(e) {
+                myMarkerClick(id);
+        });
 
  }
 
@@ -148,16 +155,25 @@ function generateMarker(width, height, imgLink, lat, long){
 
     }
 
-    function addMarker(imageLink, lat, long){
+    function addMarker(imageLink, lat, long, id){
+            console.log("ici");
             var myImage = new Image();
             myImage.name = imageLink;
             myImage.onload = function() {
-                generateMarker(this.width, this.height, imageLink, lat, long);
+                generateMarker(this.width, this.height, imageLink, lat, long, id);
             };
             myImage.onerror = loadFailure;
             myImage.src = imageLink;
     }
 
+    function showAndroidToast(toast) {
+            AndroidInterface.showToast(toast);
+    }
+
+    function myMarkerClick(id){
+        console.log("bonsoir");
+        AndroidInterface.markerClick(id);
+    }
 
 
 </script>

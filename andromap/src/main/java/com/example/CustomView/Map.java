@@ -154,7 +154,6 @@ public class Map extends WebView {
         return this.markerList;
     }
 
-
     private void exeJavascript(String js){
         Log.i("LOCATION JS", js);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
