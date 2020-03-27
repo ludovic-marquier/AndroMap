@@ -180,6 +180,10 @@ function generateMarker(width, height, imgLink, lat, long, id){
         AndroidInterface.setMapCoordinatesData(cord.lat, cord.lng, zoom);
     }
 
+    function getLeBounds(){
+        var bbox = macarte.getBounds();
+        AndroidInterface.setMapBounds(bbox._southWest.lat, bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lng);
+    }
 
 </script>
 

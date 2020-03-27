@@ -42,4 +42,12 @@ public class WebAppInterface {
         this.map.setCurrentZoomLevel(Math.round(zoom));
     }
 
+    @JavascriptInterface
+    public void setMapBounds(String sLat, String nLat, String eLong, String wLong){
+        this.map.setsLat(Double.valueOf(sLat));
+        this.map.setnLat(Double.valueOf(nLat));
+        this.map.seteLong(Double.valueOf(eLong));
+        this.map.setwLong(Double.valueOf(wLong));
+    }
+
 }

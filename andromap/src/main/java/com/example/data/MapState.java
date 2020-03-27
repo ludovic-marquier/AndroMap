@@ -5,9 +5,17 @@ public class MapState {
     private double currentLatitude;
     private double currentLongitude;
     private int currentZoomLevel;
+    private MapBounds bounds;
 
     public MapState(){
 
+    }
+
+    public MapState(double currentLatitude, double currentLongitude, int currentZoomLevel, MapBounds bounds) {
+        this.currentLatitude = currentLatitude;
+        this.currentLongitude = currentLongitude;
+        this.currentZoomLevel = currentZoomLevel;
+        this.bounds = bounds;
     }
 
     public MapState(double currentLatitude, double currentLongitude, int currentZoomLevel) {
@@ -38,5 +46,13 @@ public class MapState {
 
     public void setCurrentZoomLevel(int currentZoomLevel) {
         this.currentZoomLevel = currentZoomLevel;
+    }
+
+    public MapBounds getBounds() {
+        return bounds;
+    }
+
+    public void setBounds(MapBounds bounds) {
+        this.bounds = bounds;
     }
 }

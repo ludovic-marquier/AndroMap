@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.CustomView.Map;
 import com.example.data.MapState;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                         MapState state = map.getMapState();
                         Log.i("CURRENTMAP", "LAT : "+state.getCurrentLatitude()+"  |  LONG: "+
                                 state.getCurrentLongitude()+"  |  "+state.getCurrentZoomLevel());
+                        Toast.makeText(getApplicationContext(), String.valueOf(state.getBounds().geteLong()), Toast.LENGTH_LONG).show();
                         break;
 
                     case MotionEvent.ACTION_MOVE:

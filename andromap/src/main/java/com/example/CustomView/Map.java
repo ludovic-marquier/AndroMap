@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 
 
 import com.example.data.Coordinates;
+import com.example.data.MapBounds;
 import com.example.data.MapState;
 import com.example.eventHandler.OnMapLoadListener;
 import com.example.items.Circle;
@@ -37,6 +38,11 @@ public class Map extends WebView {
     private double currentLatitutde;
     private double currentLongitude;
     private int currentZoomLevel;
+
+    private double nLat;
+    private double sLat;
+    private double eLong;
+    private double wLong;
 
 
     public Map(Context context) {
@@ -201,11 +207,49 @@ public class Map extends WebView {
         this.currentZoomLevel = currentZoomLevel;
     }
 
+    public double getnLat() {
+        return nLat;
+    }
+
+    public void setnLat(double nLat) {
+        this.nLat = nLat;
+    }
+
+    public double getsLat() {
+        return sLat;
+    }
+
+    public void setsLat(double sLat) {
+        this.sLat = sLat;
+    }
+
+    public double geteLong() {
+        return eLong;
+    }
+
+    public void seteLong(double eLong) {
+        this.eLong = eLong;
+    }
+
+    public double getwLong() {
+        return wLong;
+    }
+
+    public void setwLong(double wLong) {
+        this.wLong = wLong;
+    }
+
     public MapState getMapState(){
-        return new MapState(this.currentLatitutde, this.currentLongitude, this.currentZoomLevel);
+        return new MapState(this.currentLatitutde, this.currentLongitude, this.currentZoomLevel, new MapBounds(this.nLat, this.sLat, this.eLong, this.wLong));
     }
 
     public void updateState(){
         exeJavascript("getCurrentMapData()");
+        exeJavascript("getLeBounds()");
+
+    }
+
+    public MapBounds getMapBound(){
+        return new MapBounds(this.nLat, this.sLat, this.eLong, this.wLong);
     }
 }
