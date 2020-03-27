@@ -22,8 +22,6 @@ public class WebAppInterface {
         this.map = map;
     }
 
-
-
     @JavascriptInterface   // must be added for API 17 or higher
     public void showToast(String toast) {
         Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
@@ -36,5 +34,11 @@ public class WebAppInterface {
         marker.getClickMarker().onClick(marker);
     }
 
+    @JavascriptInterface
+    public void setMapCoordinatesData(double latitude, double longitude, int zoomLevel){
+        this.map.setCurrentLatitutde(latitude);
+        this.map.setCurrentLongitude(longitude);
+        this.map.setCurrentZoomLevel(zoomLevel);
+    }
 
 }

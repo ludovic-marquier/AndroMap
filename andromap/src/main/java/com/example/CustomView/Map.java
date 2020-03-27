@@ -33,6 +33,9 @@ public class Map extends WebView {
     private RandomGenerator randomGenerator;
     private HashMap<String , Marker> markerList = new HashMap<String, Marker>();
     private OnMapLoadListener listener;
+    private double currentLatitutde;
+    private double currentLongitude;
+    private int currentZoomLevel;
 
 
     public Map(Context context) {
@@ -174,5 +177,27 @@ public class Map extends WebView {
         this.listener = listener;
     }
 
+    public double getCurrentLatitutde() {
+        return currentLatitutde;
+    }
 
+    public void setCurrentLatitutde(double currentLatitutde) {
+        this.currentLatitutde = currentLatitutde;
+    }
+
+    public double getCurrentLongitude() {
+        return currentLongitude;
+    }
+
+    public void setCurrentLongitude(double currentLongitude) {
+        this.currentLongitude = currentLongitude;
+    }
+
+    public int getCurrentZoomLevel() {
+        return currentZoomLevel;
+    }
+
+    public void setCurrentZoomLevel(int currentZoomLevel) {
+        this.currentZoomLevel = currentZoomLevel;
+    }
 }
