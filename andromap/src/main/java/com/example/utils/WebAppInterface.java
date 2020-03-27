@@ -35,10 +35,11 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
-    public void setMapCoordinatesData(double latitude, double longitude, int zoomLevel){
-        this.map.setCurrentLatitutde(latitude);
-        this.map.setCurrentLongitude(longitude);
-        this.map.setCurrentZoomLevel(zoomLevel);
+    public void setMapCoordinatesData(String latitude, String longitude, String zoomLevel){
+        float zoom = Float.valueOf(zoomLevel);
+        this.map.setCurrentLatitutde(Double.valueOf(latitude));
+        this.map.setCurrentLongitude(Double.valueOf(longitude));
+        this.map.setCurrentZoomLevel(Math.round(zoom));
     }
 
 }

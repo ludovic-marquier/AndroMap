@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 
 
 import com.example.data.Coordinates;
+import com.example.data.MapState;
 import com.example.eventHandler.OnMapLoadListener;
 import com.example.items.Circle;
 import com.example.items.Marker;
@@ -165,7 +166,6 @@ public class Map extends WebView {
     }
 
     private void exeJavascript(String js){
-        Log.i("LOCATION JS", js);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             this.evaluateJavascript(js, null);
         } else {
@@ -199,5 +199,13 @@ public class Map extends WebView {
 
     public void setCurrentZoomLevel(int currentZoomLevel) {
         this.currentZoomLevel = currentZoomLevel;
+    }
+
+    public MapState getMapState(){
+        return new MapState(this.currentLatitutde, this.currentLongitude, this.currentZoomLevel);
+    }
+
+    public void updateState(){
+        exeJavascript("getCurrentMapData()");
     }
 }
