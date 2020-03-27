@@ -153,6 +153,10 @@ public class Map extends WebView {
         exeJavascript("getLecentre()");
     }
 
+    public void getZoom(){
+        exeJavascript("getLeZoom()");
+    }
+
     public HashMap<String, Marker> getMarkerList(){
         return this.markerList;
     }
