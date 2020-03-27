@@ -149,6 +149,9 @@ public class Map extends WebView {
                 "macarte.addLayer(markersCluster);";
     }
 
+    public void getCenter(){
+        exeJavascript("getLecentre()");
+    }
 
     public HashMap<String, Marker> getMarkerList(){
         return this.markerList;

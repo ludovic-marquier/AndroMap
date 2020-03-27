@@ -14,22 +14,15 @@
     <style type="text/css">
 
 
-
-
         #map { /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
             height: 500px;
         }
-
 
         #mainscreen{
             position: absolute;
             top: 0;
             left: 0;
-
         }
-
-
-
 
     </style>
 
@@ -113,9 +106,6 @@ function displayMap(zoomLevel){
 
     });
 
-
-    showAndroidToast("pulswing");
-
 }
 
 function layer(){
@@ -173,6 +163,11 @@ function generateMarker(width, height, imgLink, lat, long, id){
     function myMarkerClick(id){
         console.log("bonsoir");
         AndroidInterface.markerClick(id);
+    }
+
+    function getLecentre(){
+        var cord = macarte.getCenter();
+        showAndroidToast(cord.lat+"  |  "+cord.lng);
     }
 
 
