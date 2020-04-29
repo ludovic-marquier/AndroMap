@@ -103,20 +103,21 @@ public class Map extends WebView {
     }
 
     public void goTo(double latitude, double longitude, int zoomLevel){
-       exeJavascript("macarte.flyTo(["+latitude+", "+longitude+"], "+zoomLevel+");");
+       exeJavascript("macarte.flyTo(["+latitude+", "+longitude+"], "+zoomLevel+"); macarte.once('moveend', function(){getCurrentMapData();getLeBounds();});");
     }
 
     public void goTo(Coordinates coordinates, int zoomLevel){
         exeJavascript("macarte.flyTo(["+coordinates.getLatitude()+", "+coordinates.getLongitude()+"], "+zoomLevel+");");
     }
 
-    public void addMarker(final Marker marker){
+    public void addMarker(final Marker marker, String type){
         js ="";
         String markerId = randomGenerator.generateMarkerKey();
         Log.i("Webview", markerId);
         markerList.put(markerId, marker);
         if(marker.getIconLink() != null){
-            js = "addMarker('file:///android_res/drawable/"+marker.getIconLink()+"',"+marker.getLatitude()+","+marker.getLongitude()+",'"+markerId+"');\n";
+            js = "addMarker('file:///android_res/drawable/"+marker.getIconLink()+"',"+marker.getLatitude()+","+marker.getLongitude()+",'"+markerId+"', '"+type+"');\n";
+            //js = "addMarker('android.resource://com.exemple.MyDive/"+marker.getIconLink()+"',"+marker.getLatitude()+","+marker.getLongitude()+",'"+markerId+"', '"+type+"');\n";
         }else{
             js = "var marker = L.marker(["+marker.getLatitude()+", "+marker.getLongitude()+"]).addTo(macarte);";
         }
@@ -252,4 +253,13 @@ public class Map extends WebView {
     public MapBounds getMapBound(){
         return new MapBounds(this.nLat, this.sLat, this.eLong, this.wLong);
     }
+
+    public void clear(){
+        exeJavascript("clearPulse()");
+    }
+
+    public Boolean mapIsLoaded(){
+        return this.isMapLoaded;
+    }
+
 }

@@ -1,69 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- Nous chargeons les fichiers CDN de Leaflet. Le CSS AVANT le JS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
-    <style type="text/css">
-
-
-        #map { /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
-            height: 500px;
-        }
-
-        #mainscreen{
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-          .mycluster {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            font-size: 20px;
-            line-height: 40px;
-            margin-top: -20px;
-            margin-left: -20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        }
-
-    </style>
-
-    <title>Activdoor</title>
-</head>
-<body>
-<div id="mainscreen">
-
-
-    <div id="map">
-
-    </div>
-
-</div>
-<!-- Fichiers Javascript -->
-<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
-<script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
-
-
-
-<script>
-    // On initialise la latitude et la longitude de Paris (centre de la carte)
+// On initialise la latitude et la longitude de Paris (centre de la carte)
 var macarte = null;
 var markerClusters;
 var markers = [];
@@ -131,10 +66,10 @@ function layer(){
 }
 
 
-function generateMarker(width, height, imgLink, lat, long, id, type){
+function generateMarker(width, height, imgLink, lat, long, id){
         macarte.addLayer(markerClusters);
-        let x = 40;
-        let y = 40*(height/width);
+        let x = 50;
+        let y = 50*(height/width);
         var greenIcon = L.icon({
         iconUrl: imgLink,
         iconSize:     [x, y], // size of the icon
@@ -146,10 +81,7 @@ function generateMarker(width, height, imgLink, lat, long, id, type){
 
         let marker = L.marker([lat, long], {icon: greenIcon}).on('click', function(e) {
             myMarkerClick(id);
-        });
-
-        marker.type=type;
-        marker.addTo(macarte);
+        }).addTo(macarte);
 
         markerArray.push(marker);
 
@@ -162,11 +94,11 @@ function generateMarker(width, height, imgLink, lat, long, id, type){
 
     }
 
-    function addMarker(imageLink, lat, long, id, type){
+    function addMarker(imageLink, lat, long, id){
             var myImage = new Image();
             myImage.name = imageLink;
             myImage.onload = function() {
-                generateMarker(this.width, this.height, imageLink, lat, long, id, type);
+                generateMarker(this.width, this.height, imageLink, lat, long, id);
             };
             myImage.onerror = loadFailure;
             myImage.src = imageLink;
@@ -201,20 +133,10 @@ function generateMarker(width, height, imgLink, lat, long, id, type){
     }
 
     function clearPulse(){
-        for(let i=0; i<markerArray.length; i++){
-            //console.log(markerArray[i].type);
-            if(markerArray[i].type === "center" || markerArray[i].type === "spot"){
-                 macarte.removeLayer(markerArray[i]);
-            }
-
+        //markerClusters.clearLayers();
+        for(let i=0; i<markerArray.lenght; i++){
+            macarte.removeLayer(markerArray[i]);
         }
     }
 
 </script>
-
-
-</script>
-
-
-</body>
-</html>

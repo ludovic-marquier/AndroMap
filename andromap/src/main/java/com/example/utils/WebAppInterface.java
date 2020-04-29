@@ -50,4 +50,9 @@ public class WebAppInterface {
         this.map.setwLong(Double.valueOf(wLong));
     }
 
+    @JavascriptInterface
+    public void arrivedToDestination(){
+
+    }
+
 }
