@@ -33,20 +33,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         map.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()){
-                    case MotionEvent.ACTION_UP:
-                        MapState state = map.getMapState();
-                        Log.i("CURRENTMAP", "LAT : "+state.getCurrentLatitude()+"  |  LONG: "+
-                                state.getCurrentLongitude()+"  |  "+state.getCurrentZoomLevel());
-                        Toast.makeText(getApplicationContext(), String.valueOf(state.getBounds().geteLong()), Toast.LENGTH_LONG).show();
-                        break;
 
-                    case MotionEvent.ACTION_MOVE:
-                        map.updateState();
-                        break;
+                        case MotionEvent.ACTION_DOWN:
+                            map.goTo(48.0, 2.0, 16);
+                            break;
                 }
                 return false;
             }
