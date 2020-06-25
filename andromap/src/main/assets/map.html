@@ -52,7 +52,7 @@
 
 // On initialise la latitude et la longitude de Paris (centre de la carte)
 var macarte = null;
-var markerClusters = ;
+var markerClusters;
 var markers = [];
 var spotTab;
 var userLocated = false;
@@ -133,15 +133,10 @@ function generateMarker(width, height, imgLink, lat, long, id){
 
 
         let marker = L.marker([lat, long], {icon: greenIcon});
-        //marker.markerId = id;
+        marker.markerId = id;
         marker.addTo(macarte).on('click', function(e) {
                 myMarkerClick(id);
         });
-
-         markerClusters.addLayer(marker);
-
-        macarte.clearLayers();
-        macarte.addLayer(markerClusters);
 
  }
 

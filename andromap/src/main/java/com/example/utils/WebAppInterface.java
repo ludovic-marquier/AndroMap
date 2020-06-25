@@ -10,6 +10,7 @@ import com.example.items.Marker;
 
 import java.util.HashMap;
 
+
 public class WebAppInterface {
 
     Context mContext;
@@ -48,6 +49,11 @@ public class WebAppInterface {
         this.map.setnLat(Double.valueOf(nLat));
         this.map.seteLong(Double.valueOf(eLong));
         this.map.setwLong(Double.valueOf(wLong));
+    }
+
+    @JavascriptInterface
+    public void arrivedToDestination(){
+
     }
 
 }

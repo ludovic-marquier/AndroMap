@@ -103,11 +103,11 @@ public class Map extends WebView {
     }
 
     public void goTo(double latitude, double longitude, int zoomLevel){
-       exeJavascript("macarte.flyTo(["+latitude+", "+longitude+"], "+zoomLevel+", {animate: true,duration: 1.5});");
+       exeJavascript("macarte.flyTo(["+latitude+", "+longitude+"], "+zoomLevel+");");
     }
 
     public void goTo(Coordinates coordinates, int zoomLevel){
-        exeJavascript("macarte.flyTo(["+coordinates.getLatitude()+", "+coordinates.getLongitude()+"], "+zoomLevel+", {animate: true,duration: 1.5});");
+        exeJavascript("macarte.flyTo(["+coordinates.getLatitude()+", "+coordinates.getLongitude()+"], "+zoomLevel+");");
     }
 
     public void addMarker(final Marker marker){
