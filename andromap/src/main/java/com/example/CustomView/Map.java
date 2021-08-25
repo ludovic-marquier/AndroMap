@@ -243,9 +243,15 @@ public class Map extends WebView {
         return new MapState(this.currentLatitutde, this.currentLongitude, this.currentZoomLevel, new MapBounds(this.nLat, this.sLat, this.eLong, this.wLong));
     }
 
+    public void clear(){
+        exeJavascript("clearPulse()");
+    }
+
     public void updateState(){
         exeJavascript("getCurrentMapData()");
         exeJavascript("getLeBounds()");
+
+
 
     }
 
